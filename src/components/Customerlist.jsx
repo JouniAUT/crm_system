@@ -5,7 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchCustomers } from "../customerapi";
 
-function Customerlist() {
+export default function Customerlist() {
 
     const [customers, setCustomers] = useState([]); //Create empty list for customers
 
@@ -30,9 +30,6 @@ function Customerlist() {
             .catch(err => console.error(err))
     }
 
-
-
-
     return (
         <>
             <div className={"ag-theme-material"} style={{ height: 600 }}>
@@ -46,5 +43,3 @@ function Customerlist() {
         </>
     );
 }
-
-export default Customerlist;
