@@ -7,7 +7,6 @@ import Calendar from './components/Calendar';
 import Statistics from './components/Statistics';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Button } from '@mui/material';
 import AddCustomer from './components/AddCustomer';
 import { fetchCustomers } from "./customerapi";
 
@@ -45,7 +44,7 @@ function App() {
   return (
     <>
       <Container maxWidth='xl' > {/* Add tab bar for easier navigation between pages */}
-        <Tabs value={currentValue} onChange={handleTabs}>
+        <Tabs value={currentValue} onChange={handleTabs} variant="fullWidth">
           <Tab value='one' label='Home' justifycontent='center' alignitems='center' />
           <Tab value='two' label='Customers' justifycontent='center' alignitems='center' />
           <Tab value='three' label='Trainings' justifycontent='center' alignitems='center' />
@@ -54,12 +53,13 @@ function App() {
           <AddCustomer addCustomer={addCustomer} />
         </Tabs>
 
+
+
         {currentValue === 'one' && <Home />}
         {currentValue === 'two' && <Customerlist />}
         {currentValue === 'three' && <Traininglist />}
         {currentValue === 'four' && <Statistics />}
         {currentValue === 'five' && <Calendar />}
-
       </Container>
     </>
   );

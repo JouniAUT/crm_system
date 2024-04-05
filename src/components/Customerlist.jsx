@@ -57,7 +57,7 @@ export default function Customerlist() {
     return (
         <>
 
-            <div className={"ag-theme-material"} style={{ height: 600 }}> {/* Show Ag-Ggrid with data on page */}
+            <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
                 <AgGridReact
                     rowData={customers}
                     columnDefs={colDefs}
