@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
@@ -10,13 +10,13 @@ export default function Customerlist() {
     const [customers, setCustomers] = useState([]); //Create empty list for customers
 
     const [colDefs] = useState([ //Define AG-Grid columns
-        { field: 'firstname', filter: true },
-        { field: 'lastname', filter: true },
-        { field: 'streetaddress', filter: true },
-        { field: 'postcode', filter: true },
-        { field: 'city', filter: true },
-        { field: 'email', filter: true },
-        { field: 'phone', filter: true },
+        { field: 'firstname', filter: true, floatingFilter: true },
+        { field: 'lastname', filter: true, floatingFilter: true },
+        { field: 'streetaddress', headerName: 'Address', filter: true, floatingFilter: true },
+        { field: 'postcode', filter: true, floatingFilter: true },
+        { field: 'city', filter: true, floatingFilter: true },
+        { field: 'email', filter: true, floatingFilter: true },
+        { field: 'phone', filter: true, floatingFilter: true },
     ]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function Customerlist() {
 
     }, []);
 
-    const handleFetch = () => {
+    const handleFetch = () => { // Fetch the data for AG-Grid
         fetchCustomers()
             .then(data => setCustomers(data._embedded.customers))
             .catch(err => console.error(err))
@@ -32,7 +32,8 @@ export default function Customerlist() {
 
     return (
         <>
-            <div className={"ag-theme-material"} style={{ height: 600 }}>
+
+            <div className={"ag-theme-material"} style={{ height: 600 }}> {/* Show Ag-Ggrid with data on page */}
                 <AgGridReact
                     rowData={customers}
                     columnDefs={colDefs}
