@@ -14,4 +14,4 @@ export const fetchTrainings = () => { // Fetch the backend for trainnig data fro
                 throw new Error("Error in fetch " + response.statusText);
             return response.json();
         })
-} 
+}

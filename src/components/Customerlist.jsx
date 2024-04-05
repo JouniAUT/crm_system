@@ -36,21 +36,7 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
-    const addCustomer = (newCustomer) => {
-        fetch(import.meta.env.VITE_API_CUSTOMERS_URL, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newCustomer)
-        })
 
-            .then(response => {
-                if (!response.ok)
-                    throw new Error('Error when adding new customer ' + response.statusText)
-                return response.json();
-            })
-            .then(() => handleFetch())
-            .catch(err => console.error(err))
-    }
 
     const updateCustomer = (url, updateCustomer) => {
         fetch(url, {
@@ -70,7 +56,7 @@ export default function Customerlist() {
 
     return (
         <>
-            <AddCustomer addCustomer={addCustomer} />
+
             <div className={"ag-theme-material"} style={{ height: 600 }}> {/* Show Ag-Ggrid with data on page */}
                 <AgGridReact
                     rowData={customers}
