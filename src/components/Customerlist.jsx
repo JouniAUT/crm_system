@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchCustomers } from "../customerapi";
+import AddCustomer from './AddCustomer';
 
 export default function Customerlist() {
 
@@ -30,9 +31,25 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
+    const addCustomer = (newCustomer) => {
+        fetch(import.meta.env.VITE_API_CUSTOMERS_URL, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newCustomer)
+        })
+
+            .then(response => {
+                if (!response.ok)
+                    throw new Error('Error when adding new customer ' + response.statusText)
+                return response.json();
+            })
+            .then(() => handleFetch())
+            .catch(err => console.error(err))
+    }
+
     return (
         <>
-
+            <AddCustomer addCustomer={addCustomer} />
             <div className={"ag-theme-material"} style={{ height: 600 }}> {/* Show Ag-Ggrid with data on page */}
                 <AgGridReact
                     rowData={customers}

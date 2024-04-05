@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Container from '@mui/material/Container';
 import Customerlist from './components/Customerlist';
@@ -8,6 +7,8 @@ import Calendar from './components/Calendar';
 import Statistics from './components/Statistics';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { Button } from '@mui/material';
+import AddCustomer from './components/AddCustomer';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
     setCurrentValue(value);
 
   }
+
 
   return (
     <>

@@ -7,7 +7,7 @@ export const fetchCustomers = () => {
         })
 }
 
-export const fetchTrainings = () => { // Fetch the backend for training data from designated website
+export const fetchTrainings = () => { // Fetch the backend for trainnig data from designated website
     return fetch(import.meta.env.VITE_API_TRAININGS_URL)
         .then(response => {
             if (!response.ok)
