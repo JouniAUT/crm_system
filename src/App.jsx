@@ -7,6 +7,7 @@ import Calendar from './components/Calendar';
 import Statistics from './components/Statistics';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { Box } from '@mui/material';
 import AddCustomer from './components/AddCustomer';
 import { fetchCustomers } from "./customerapi";
 
@@ -42,8 +43,9 @@ function App() {
   }
 
   return (
-    <>
-      <Container maxWidth='xl' > {/* Add tab bar for easier navigation between pages */}
+
+    <Container maxWidth='xl' > {/* Add tab bar for easier navigation between pages */}
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: 5 }}>
         <Tabs value={currentValue} onChange={handleTabs} variant="fullWidth">
           <Tab value='one' label='Home' justifycontent='center' alignitems='center' />
           <Tab value='two' label='Customers' justifycontent='center' alignitems='center' />
@@ -52,16 +54,20 @@ function App() {
           <Tab value='five' label='Calendar' justifycontent='center' alignitems='center' />
           <AddCustomer addCustomer={addCustomer} />
         </Tabs>
+      </Box >
 
 
 
-        {currentValue === 'one' && <Home />}
-        {currentValue === 'two' && <Customerlist />}
-        {currentValue === 'three' && <Traininglist />}
-        {currentValue === 'four' && <Statistics />}
-        {currentValue === 'five' && <Calendar />}
-      </Container>
-    </>
+      {currentValue === 'one' && <Home />}
+      {currentValue === 'two' && <Customerlist />}
+      {currentValue === 'three' && <Traininglist />}
+      {currentValue === 'four' && <Statistics />}
+      {currentValue === 'five' && <Calendar />}
+
+    </Container>
+
+
+
   );
 }
 

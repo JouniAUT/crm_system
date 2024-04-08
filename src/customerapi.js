@@ -15,3 +15,4 @@ export const fetchTrainings = () => { // Fetch the backend for trainnig data fro
             return response.json();
         })
 }
+

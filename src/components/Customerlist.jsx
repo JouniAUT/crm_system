@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchCustomers } from "../customerapi";
-import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
+import { Box } from '@mui/material';
 
 export default function Customerlist() {
 
@@ -22,6 +22,12 @@ export default function Customerlist() {
         {
             cellRenderer: params => <EditCustomer data={params.data} updateCustomer={updateCustomer} />,
             width: 120
+        },
+        {
+            cellRenderer: params =>
+                <Button size='small' color='error' variant='contained' onClick={() => deleteCustomer(params.data._links.customer.href)}>
+                    Delete
+                </Button>, width: 130
         }
     ]);
 
@@ -36,9 +42,7 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
-
-
-    const updateCustomer = (url, updateCustomer) => {
+    const updateCustomer = (url, updateCustomer) => { // Update customer data with PUT-method
         fetch(url, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
@@ -54,9 +58,23 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
-    return (
-        <>
+    const deleteCustomer = (url) => { //Delete customer with DELETE-method
+        if (window.confirm("Are you sure?")) {
+            fetch(url, { method: 'DELETE' })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error("Error while deleting: " + response.statusText);
 
+                    return response.json();
+                })
+                .then(() => handleFetch())
+                .catch(err => console.error(err))
+        }
+    }
+
+
+    return (
+        <Box>
             <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
                 <AgGridReact
                     rowData={customers}
@@ -65,6 +83,8 @@ export default function Customerlist() {
                     paginationAutoPageSize={true}
                 />
             </div>
-        </>
+        </Box>
+
     );
 }
+
