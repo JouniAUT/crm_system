@@ -7,8 +7,8 @@ export const fetchCustomers = () => {
         })
 }
 
-export const fetchTrainings = () => { // Fetch the backend for trainnig data from designated website
-    return fetch(import.meta.env.VITE_API_TRAININGS_URL)
+export const fetchTrainingsCustomers = () => { // Fetch the backend for trainnig data from designated website
+    return fetch(import.meta.env.VITE_API_TRAININGS_CUSTOMERS_URL)
         .then(response => {
             if (!response.ok)
                 throw new Error("Error in fetch " + response.statusText);

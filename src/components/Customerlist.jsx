@@ -59,6 +59,7 @@ export default function Customerlist() {
     }
 
     const deleteCustomer = (url) => { //Delete customer with DELETE-method
+        console.log(url)
         if (window.confirm("Are you sure?")) {
             fetch(url, { method: 'DELETE' })
                 .then(response => {

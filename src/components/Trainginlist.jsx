@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchTrainings } from "../customerapi";
+import { fetchTrainingsCustomers } from "../customerapi";
 import dayjs from 'dayjs';
 import { Button } from "@mui/material";
 
@@ -22,7 +22,13 @@ function Traininglist() {
         { field: 'activity', filter: true, floatingFilter: true },
         { field: 'customer.firstname', headerName: 'Firstname', filter: true, floatingFilter: true },
         { field: 'customer.lastname', headerName: 'Lastname', filter: true, floatingFilter: true },
+        {
+            cellRenderer: params =>
+                <Button size='small' color='error' variant='contained' onClick={() => deleteTraining(params.data.id)}>
+                    Delete
+                </Button>
 
+        }
 
     ]);
 
@@ -36,12 +42,26 @@ function Traininglist() {
     }, []);
 
     const handleFetch = () => { // Fetch the data for AG-Grid
-        fetchTrainings()
+        fetchTrainingsCustomers()
             .then(data => setTrainings(data))
             .catch(err => console.error(err))
     }
 
 
+    const deleteTraining = (url) => {
+        console.log(url)
+        if (window.confirm("Are you sure?")) {
+            fetch(import.meta.env.VITE_API_TRAININGS_URL + url, { method: 'DELETE' })
+                .then(response => {
+                    if (!response.ok)
+                        throw new Error("Error while deleting: " + response.statusText)
+
+                    return response.json();
+                })
+                .then(() => handleFetch())
+                .catch(err => console.error(err))
+        }
+    }
 
     return (
         <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
