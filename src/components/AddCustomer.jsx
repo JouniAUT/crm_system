@@ -10,7 +10,7 @@ export default function AddCustomer({ addCustomer }) {
 
     const [open, setOpen] = useState(false);
 
-    const [customer, setCustomer] = useState({
+    const [customer, setCustomer] = useState({ // Create state for new customer objects
         firstname: '',
         lastname: '',
         email: '',
@@ -37,14 +37,14 @@ export default function AddCustomer({ addCustomer }) {
 
     return (
         <>
-            <Button variant='contained' color='success' onClick={handleClickOpen}>
+            <Button variant='contained' color='success' onClick={handleClickOpen}> {/* Button for adding a new customer and opening dialog for adding the information */}
                 New Customer
             </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>Add new customer</DialogTitle>
+                <DialogTitle>Add new customer</DialogTitle> {/* Dialog for all the mandatory attributes */}
                 <DialogContent>
                     <TextField
                         margin='dense'

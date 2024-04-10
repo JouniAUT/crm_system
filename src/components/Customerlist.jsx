@@ -3,10 +3,11 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchCustomers } from "../customerapi";
+import { fetchCustomers, editCustomer, handleTraining } from "../customerapi";
 import EditCustomer from './EditCustomer';
-import { Box } from '@mui/material';
 import AddTraining from './AddTraining';
+import { Box } from '@mui/material';
+
 
 export default function Customerlist() {
 
@@ -21,18 +22,18 @@ export default function Customerlist() {
         { field: 'email', filter: true, floatingFilter: true },
         { field: 'phone', filter: true, floatingFilter: true, width: 160 },
         {
-            cellRenderer: params => <AddTraining data={params.data} addTraining={addTraining} />,
+            cellRenderer: params => <AddTraining data={params.data} addTraining={addTraining} />, //Column and button for adding new trainings for customer
             width: 120,
             headerName: 'New Training'
         },
         {
-            cellRenderer: params => <EditCustomer data={params.data} updateCustomer={updateCustomer} />,
+            cellRenderer: params => <EditCustomer data={params.data} handleCustomer={handleCustomer} />, //Column and button for editing customer info
             width: 120,
             headerName: 'Edit',
 
         },
         {
-            cellRenderer: params =>
+            cellRenderer: params => // Button for deleting customer 
                 <Button size='small' color='error' variant='contained' onClick={() => deleteCustomer(params.data._links.customer.href)}>
                     Delete
                 </Button>, width: 130,
@@ -40,8 +41,6 @@ export default function Customerlist() {
 
         }
     ]);
-
-
 
     useEffect(() => {
         handleFetch();
@@ -54,25 +53,19 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
-    const updateCustomer = (url, updateCustomer) => { // Update customer data with PUT-method
-        console.log(url)
-        fetch(url, {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(updateCustomer)
-        })
+    const handleCustomer = (url, updateCustomer) => { // Update customer data with PUT-method
+        editCustomer()
+            .then(() => handleFetch())
+            .catch(err => console.error(err))
+    }
 
-            .then(response => {
-                if (!response.ok)
-                    throw new Error("Error when updating customer details " + response.statusText)
-                return response.json();
-            })
+    const addTraining = (training) => { // Fetch customer data from the row and add new training for that customer
+        handleTraining()
             .then(() => handleFetch())
             .catch(err => console.error(err))
     }
 
     const deleteCustomer = (url) => { //Delete customer with DELETE-method
-        console.log(url)
         if (window.confirm("Are you sure?")) {
             fetch(url, { method: 'DELETE' })
                 .then(response => {
@@ -86,22 +79,6 @@ export default function Customerlist() {
         }
     }
 
-    const addTraining = (training) => {
-        fetch(import.meta.env.VITE_API_TRAININGS_URL, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(training)
-        })
-
-            .then(response => {
-                if (!response.ok)
-                    throw new Error("Error while adding new trainig for customer: " + response.statusText)
-                return response.json();
-
-            })
-            .then(() => handleFetch())
-            .catch(err => console.error(err))
-    }
 
 
     return (

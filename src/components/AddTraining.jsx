@@ -13,14 +13,14 @@ export default function AddTraining({ addTraining, data }) {
 
     const [open, setOpen] = useState(false);
 
-    const [training, setTraining] = useState({
+    const [training, setTraining] = useState({ //Create training object with attributes
         date: null,
         activity: '',
         duration: 0,
-        customer: data._links.customer.href
+        customer: data._links.customer.href //Fetch customer data from the row
     })
 
-    const handleClickOpen = () => { // Open Add new training -sheet
+    const handleClickOpen = () => { // Open Add new training dialog
         setOpen(true);
     };
 
@@ -28,20 +28,20 @@ export default function AddTraining({ addTraining, data }) {
         setOpen(false);
     };
 
-    const handleSave = () => { // Save new training
+    const handleSave = () => { // Save new training and close dialog
         addTraining(training);
         handleClose();
 
     }
 
-    const handleDate = (date) => {
+    const handleDate = (date) => { // Add chosen date in training object
         setTraining({ ...training, date: date.toDate() })
     }
 
     return (
         <>
 
-            <Button size='small' variant='contained' color='success' onClick={handleClickOpen}>
+            <Button size='small' variant='contained' color='success' onClick={handleClickOpen}> {/* Button for adding new training for a customer */}
                 +
             </Button>
 
@@ -49,7 +49,7 @@ export default function AddTraining({ addTraining, data }) {
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>
+                <DialogTitle> {/* Dialog with date, activity and duration attributes */}
                     <DialogContent>
                         <Stack>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>

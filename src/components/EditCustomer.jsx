@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function EditCustomer({ data, updateCustomer }) {
     const [open, setOpen] = useState(false);
 
-    const [customer, setCustomer] = useState({
+    const [customer, setCustomer] = useState({ // Create customer object with empty attributes
         firstname: '',
         lastname: '',
         email: '',
@@ -20,7 +20,7 @@ export default function EditCustomer({ data, updateCustomer }) {
         city: ''
     });
 
-    const handleClickOpen = () => {
+    const handleClickOpen = () => { // Open dialog with existing data
         setCustomer({
             firstname: data.firstname,
             lastname: data.lastname,
@@ -33,25 +33,25 @@ export default function EditCustomer({ data, updateCustomer }) {
         setOpen(true);
     }
 
-    const handleClose = () => {
+    const handleClose = () => { // Close dialog without saving
         setOpen(false);
     };
 
-    const handleSave = () => {
+    const handleSave = () => { // Save edited data and close dialog
         updateCustomer(data._links.customer.href, customer)
         handleClose();
     }
 
     return (
         <>
-            <Button size='small' variant='contained' onClick={handleClickOpen}>
+            <Button size='small' variant='contained' onClick={handleClickOpen}> {/* Create button for editing */}
                 Edit
             </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle>Add new customer</DialogTitle>
+                <DialogTitle>Add new customer</DialogTitle> {/* Dialog with text fields to edit customer data */}
                 <DialogContent>
                     <TextField
                         margin='dense'

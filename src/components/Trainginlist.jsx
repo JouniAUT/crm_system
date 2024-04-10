@@ -23,7 +23,7 @@ function Traininglist() {
         { field: 'customer.firstname', headerName: 'Firstname', filter: true, floatingFilter: true },
         { field: 'customer.lastname', headerName: 'Lastname', filter: true, floatingFilter: true },
         {
-            cellRenderer: params =>
+            cellRenderer: params => //Add column and button for deleting trainings
                 <Button size='small' color='error' variant='contained' onClick={() => deleteTraining(params.data.id)}>
                     Delete
                 </Button>
@@ -31,11 +31,6 @@ function Traininglist() {
         }
 
     ]);
-
-    const formatDate = (dateString) => { // Function for date formatting
-        const formattedDate = dayjs(dateString).format('D.M.YYYY HH:mm');
-        return formattedDate;
-    }
 
     useEffect(() => {
         handleFetch();
@@ -48,7 +43,12 @@ function Traininglist() {
             .catch(err => console.error(err))
     }
 
-    const deleteTraining = (url) => {
+    const formatDate = (dateString) => { // Function for date formatting
+        const formattedDate = dayjs(dateString).format('D.M.YYYY HH:mm');
+        return formattedDate;
+    }
+
+    const deleteTraining = (url) => { // Function for deleting training
         console.log(url)
         if (window.confirm("Are you sure?")) {
             fetch(import.meta.env.VITE_API_TRAININGS_URL + '/' + url, { method: 'DELETE' })
@@ -64,8 +64,9 @@ function Traininglist() {
     }
 
     return (
+
         <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
-            <AgGridReact
+            < AgGridReact
                 rowData={trainings}
                 columnDefs={colDefs}
                 pagination={true}
