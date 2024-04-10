@@ -39,6 +39,7 @@ function Traininglist() {
 
     useEffect(() => {
         handleFetch();
+
     }, []);
 
     const handleFetch = () => { // Fetch the data for AG-Grid
@@ -47,11 +48,10 @@ function Traininglist() {
             .catch(err => console.error(err))
     }
 
-
     const deleteTraining = (url) => {
         console.log(url)
         if (window.confirm("Are you sure?")) {
-            fetch(import.meta.env.VITE_API_TRAININGS_URL + url, { method: 'DELETE' })
+            fetch(import.meta.env.VITE_API_TRAININGS_URL + '/' + url, { method: 'DELETE' })
                 .then(response => {
                     if (!response.ok)
                         throw new Error("Error while deleting: " + response.statusText)

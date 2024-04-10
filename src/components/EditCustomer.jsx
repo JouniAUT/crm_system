@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function EditCustomer({ data, updateCustomer }) {
     const [open, setOpen] = useState(false);
+
     const [customer, setCustomer] = useState({
         firstname: '',
         lastname: '',
@@ -43,7 +44,7 @@ export default function EditCustomer({ data, updateCustomer }) {
 
     return (
         <>
-            <Button variant='contained' onClick={handleClickOpen}>
+            <Button size='small' variant='contained' onClick={handleClickOpen}>
                 Edit
             </Button>
             <Dialog

@@ -6,6 +6,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchCustomers } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import { Box } from '@mui/material';
+import AddTraining from './AddTraining';
 
 export default function Customerlist() {
 
@@ -20,16 +21,27 @@ export default function Customerlist() {
         { field: 'email', filter: true, floatingFilter: true },
         { field: 'phone', filter: true, floatingFilter: true, width: 160 },
         {
+            cellRenderer: params => <AddTraining data={params.data} addTraining={addTraining} />,
+            width: 120,
+            headerName: 'New Training'
+        },
+        {
             cellRenderer: params => <EditCustomer data={params.data} updateCustomer={updateCustomer} />,
-            width: 120
+            width: 120,
+            headerName: 'Edit',
+
         },
         {
             cellRenderer: params =>
                 <Button size='small' color='error' variant='contained' onClick={() => deleteCustomer(params.data._links.customer.href)}>
                     Delete
-                </Button>, width: 130
+                </Button>, width: 130,
+            headerName: 'Delete',
+
         }
     ]);
+
+
 
     useEffect(() => {
         handleFetch();
@@ -43,6 +55,7 @@ export default function Customerlist() {
     }
 
     const updateCustomer = (url, updateCustomer) => { // Update customer data with PUT-method
+        console.log(url)
         fetch(url, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
@@ -71,6 +84,23 @@ export default function Customerlist() {
                 .then(() => handleFetch())
                 .catch(err => console.error(err))
         }
+    }
+
+    const addTraining = (training) => {
+        fetch(import.meta.env.VITE_API_TRAININGS_URL, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(training)
+        })
+
+            .then(response => {
+                if (!response.ok)
+                    throw new Error("Error while adding new trainig for customer: " + response.statusText)
+                return response.json();
+
+            })
+            .then(() => handleFetch())
+            .catch(err => console.error(err))
     }
 
 
