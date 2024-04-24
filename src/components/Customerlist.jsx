@@ -7,6 +7,7 @@ import { fetchCustomers, editCustomer, handleTraining } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import { Box } from '@mui/material';
+import { CSVLink } from "react-csv";
 
 
 export default function Customerlist() {
@@ -16,9 +17,9 @@ export default function Customerlist() {
     const [colDefs] = useState([ //Define AG-Grid columns
         { field: 'firstname', filter: true, floatingFilter: true, width: 120 },
         { field: 'lastname', filter: true, floatingFilter: true, width: 120 },
-        { field: 'streetaddress', headerName: 'Address', filter: true, floatingFilter: true },
-        { field: 'postcode', filter: true, floatingFilter: true, width: 120 },
-        { field: 'city', filter: true, floatingFilter: true },
+        { field: 'streetaddress', headerName: 'Address', filter: true, floatingFilter: true, width: 160 },
+        { field: 'postcode', filter: true, floatingFilter: true, width: 100 },
+        { field: 'city', filter: true, floatingFilter: true, width: 100 },
         { field: 'email', filter: true, floatingFilter: true },
         { field: 'phone', filter: true, floatingFilter: true, width: 160 },
         {
@@ -28,7 +29,7 @@ export default function Customerlist() {
         },
         {
             cellRenderer: params => <EditCustomer data={params.data} handleCustomer={handleCustomer} />, //Column and button for editing customer info
-            width: 120,
+            width: 112,
             headerName: 'Edit',
 
         },
@@ -36,7 +37,7 @@ export default function Customerlist() {
             cellRenderer: params => // Button for deleting customer 
                 <Button size='small' color='error' variant='contained' onClick={() => deleteCustomer(params.data._links.customer.href)}>
                     Delete
-                </Button>, width: 130,
+                </Button>, width: 125,
             headerName: 'Delete',
 
         }
@@ -79,20 +80,40 @@ export default function Customerlist() {
         }
     }
 
+    const exportCsvData = [
+        ["Firstname", "Lastname", "Streetaddress", "Postcode", "City", "Email", "Phone"],
+        ...customers.map(({ firstname, lastname, streetaddress, postcode, city, email, phone }) => [
+            firstname,
+            lastname,
+            streetaddress,
+            postcode,
+            city,
+            email,
+            phone,
+        ]),
+    ];
 
 
     return (
-        <Box>
-            <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
-                <AgGridReact
-                    rowData={customers}
-                    columnDefs={colDefs}
-                    pagination={true}
-                    paginationAutoPageSize={true}
-                />
-            </div>
-        </Box>
+        <>
 
+            <Box>
+                <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
+                    <AgGridReact
+                        rowData={customers}
+                        columnDefs={colDefs}
+                        pagination={true}
+                        paginationAutoPageSize={true}
+                    />
+                    <CSVLink data={exportCsvData} filename='customerdata.csv' separator=';' style={{ marginLeft: '1360px' }}>
+                        <Button size='large' variant='contained'>
+                            Export
+                        </Button>
+                    </CSVLink>
+                </div>
+            </Box>
+
+        </>
     );
 }
 
