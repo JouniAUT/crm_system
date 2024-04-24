@@ -5,7 +5,6 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchTrainingsCustomers } from "../customerapi";
 import dayjs from 'dayjs';
 import { Button } from "@mui/material";
-import Calendar from "./Calendar";
 
 function Traininglist() {
 
@@ -61,11 +60,11 @@ function Traininglist() {
                 })
                 .then(() => handleFetch())
                 .catch(err => console.error(err))
-
         }
     }
 
     return (
+
         <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
             < AgGridReact
                 rowData={trainings}
