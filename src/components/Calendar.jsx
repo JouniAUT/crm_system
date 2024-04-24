@@ -49,7 +49,7 @@ export default function Calendar() {
             views={['month', 'week', 'day', 'agenda']}
             defaultView='week'
             formats={formats}
-            style={{ margin: "20px", height: 600 }}
+            style={{ margin: "20px", height: 600, font: "Arial" }}
         />
 
     );

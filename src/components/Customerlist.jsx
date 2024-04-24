@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchCustomers, editCustomer, handleTraining } from "../customerapi";
+import { fetchCustomers, editCustomer } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import { Box } from '@mui/material';
@@ -60,9 +60,19 @@ export default function Customerlist() {
             .catch(err => console.error(err))
     }
 
-    const addTraining = (training) => { // Fetch customer data from the row and add new training for that customer
-        handleTraining()
-            .then(() => handleFetch())
+    const addTraining = (newTraining) => {
+        fetch(import.meta.env.VITE_API_TRAININGS_URL, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newTraining)
+        })
+            .then(response => { //Handle errors
+                if (!response.ok)
+                    throw new Error("Error when adding car: " + response.statusText)
+
+                return response.json();
+            })
+            .then(() => handleFetch()) //Fetch updated car list
             .catch(err => console.error(err))
     }
 
