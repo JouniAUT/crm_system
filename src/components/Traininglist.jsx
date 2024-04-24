@@ -61,22 +61,22 @@ function Traininglist() {
                 })
                 .then(() => handleFetch())
                 .catch(err => console.error(err))
+
         }
     }
 
     return (
-        <>
-            <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
-                < AgGridReact
-                    rowData={trainings}
-                    columnDefs={colDefs}
-                    pagination={true}
-                    paginationAutoPageSize={true}
-                />
+        <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
+            < AgGridReact
+                rowData={trainings}
+                columnDefs={colDefs}
+                pagination={true}
+                paginationAutoPageSize={true}
+            />
 
-            </div>
+        </div>
 
-        </>
+
     )
 }
 

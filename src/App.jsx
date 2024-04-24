@@ -54,14 +54,14 @@ function App() {
           <Tab value='three' label='Trainings' justifycontent='center' alignitems='center' />
           <Tab value='four' label='Statistics' justifycontent='center' alignitems='center' />
           <Tab value='five' label='Calendar' justifycontent='center' alignitems='center' />
-          {/*<AddCustomer addCustomer={addCustomer} /> */}
+          <AddCustomer addCustomer={addCustomer} />
         </Tabs>
         {currentValue === 'one' && <Home />}
         {currentValue === 'two' && <Customerlist />}
         {currentValue === 'three' && <Traininglist />}
         {currentValue === 'four' && <Statistics />}
         {currentValue === 'five' && <Calendar />}
-        {currentValue === 'two' && <AddCustomer />}
+
       </Box >
     </Container>
 

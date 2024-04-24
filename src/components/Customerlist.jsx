@@ -95,25 +95,21 @@ export default function Customerlist() {
 
 
     return (
-        <>
 
-            <Box>
-                <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
-                    <AgGridReact
-                        rowData={customers}
-                        columnDefs={colDefs}
-                        pagination={true}
-                        paginationAutoPageSize={true}
-                    />
-                    <CSVLink data={exportCsvData} filename='customerdata.csv' separator=';' style={{ marginLeft: '1360px' }}>
-                        <Button size='large' variant='contained'>
-                            Export
-                        </Button>
-                    </CSVLink>
-                </div>
-            </Box>
+        <div className={"ag-theme-material"} style={{ height: 600, maxWidth: 'xl' }}> {/* Show Ag-Ggrid with data on page */}
+            <AgGridReact
+                rowData={customers}
+                columnDefs={colDefs}
+                pagination={true}
+                paginationAutoPageSize={true}
+            />
+            <CSVLink data={exportCsvData} filename='customerdata.csv' separator=';' style={{ marginLeft: '1360px' }}>
+                <Button size='large' variant='contained'>
+                    Export
+                </Button>
+            </CSVLink>
+        </div>
 
-        </>
     );
 }
 
