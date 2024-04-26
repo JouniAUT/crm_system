@@ -15,6 +15,8 @@ import { useState } from 'react';
 
 function App() {
 
+  const [customers, setCustomers] = useState([]);
+
   const [currentValue, setCurrentValue] = React.useState('one');
 
   const handleTabs = (ev, value) => {
@@ -43,6 +45,7 @@ function App() {
       .then(() => handleFetch())
       .catch(err => console.error(err))
   }
+
 
   return (
 

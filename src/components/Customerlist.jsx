@@ -52,6 +52,7 @@ export default function Customerlist() {
         fetchCustomers()
             .then(data => setCustomers(data._embedded.customers))
             .catch(err => console.error(err))
+
     }
 
     const handleCustomer = (url, updateCustomer) => { // Update customer data with PUT-method

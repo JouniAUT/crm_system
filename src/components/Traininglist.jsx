@@ -34,6 +34,7 @@ function Traininglist() {
     useEffect(() => {
         handleFetch();
 
+
     }, []);
 
     const handleFetch = () => { // Fetch the data for AG-Grid
@@ -49,7 +50,6 @@ function Traininglist() {
     }
 
     const deleteTraining = (url) => { // Function for deleting training
-        console.log(url)
         if (window.confirm("Are you sure?")) {
             fetch(import.meta.env.VITE_API_TRAININGS_URL + '/' + url, { method: 'DELETE' })
                 .then(response => {
