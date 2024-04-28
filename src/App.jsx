@@ -7,9 +7,9 @@ import Calendar from './components/Calendar';
 import Statistics from './components/Statistics';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import AddCustomer from './components/AddCustomer';
-import { fetchCustomers } from "./customerapi";
+import { fetchCustomers, handleAddCustomer } from "./customerapi";
 import { useState } from 'react';
 
 
@@ -31,17 +31,7 @@ function App() {
   }
 
   const addCustomer = (newCustomer) => {
-    fetch(import.meta.env.VITE_API_CUSTOMERS_URL, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newCustomer)
-    })
-
-      .then(response => {
-        if (!response.ok)
-          throw new Error('Error when adding new customer ' + response.statusText)
-        return response.json();
-      })
+    handleAddCustomer(newCustomer)
       .then(() => handleFetch())
       .catch(err => console.error(err))
   }

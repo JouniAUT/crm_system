@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchTrainingsCustomers } from "../customerapi";
+import { fetchTrainingsCustomers, handleDeleteTraining } from "../customerapi";
 import dayjs from 'dayjs';
 import { Button } from "@mui/material";
 
@@ -41,7 +41,6 @@ function Traininglist() {
         fetchTrainingsCustomers()
             .then(data => setTrainings(data))
             .catch(err => console.error(err))
-
     }
 
     const formatDate = (dateString) => { // Function for date formatting
@@ -50,18 +49,11 @@ function Traininglist() {
     }
 
     const deleteTraining = (url) => { // Function for deleting training
-        if (window.confirm("Are you sure?")) {
-            fetch(import.meta.env.VITE_API_TRAININGS_URL + '/' + url, { method: 'DELETE' })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error("Error while deleting: " + response.statusText)
-
-                    return response.json();
-                })
-                .then(() => handleFetch())
-                .catch(err => console.error(err))
-        }
+        handleDeleteTraining(url)
+            .then(() => handleFetch())
+            .catch(err => console.error(err))
     }
+
 
     return (
 

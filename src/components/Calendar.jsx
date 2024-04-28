@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import { handleFormat } from "../customerapi";
 
 export default function Calendar() {
 
@@ -21,21 +22,9 @@ export default function Calendar() {
         fetchTrainingsCustomers()
             .then(data => setTrainings(data))
             .catch(err => console.error(err))
-
     }
 
-    const events = trainings.map(training => {
-
-        const firstName = training.customer.firstname || "No name"; // Check if names are empty, if so, set them to "No name"
-        const lastName = training.customer.lastname || "No name";
-
-        return {
-            title: training.activity + " - " + firstName + " " + lastName,
-            start: new Date(training.date),
-            end: moment(training.date).add(training.duration, 'minutes'),
-        };
-    });
-
+    const events = handleFormat(trainings);
 
     const formats = {
         timeGutterFormat: 'H:mm', // Format for time in the left side column
@@ -43,8 +32,8 @@ export default function Calendar() {
             localizer.format(start, 'H:mm', culture) + ' - ' +
             localizer.format(end, 'H:mm', culture), // Format for event times
         agendaTimeRangeFormat: ({ start, end }, culture, localizer) =>
-            localizer.format(start, 'HH:mm', culture) + ' - ' +
-            localizer.format(end, 'HH:mm', culture)
+            localizer.format(start, 'H:mm', culture) + ' - ' +
+            localizer.format(end, 'H:mm', culture)
     };
 
     const Item = styled(Paper)(({ theme }) => ({

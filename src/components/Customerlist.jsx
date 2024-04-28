@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchCustomers } from "../customerapi";
+import { fetchCustomers, handleAddTraining, handleDeleteCustomer } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import { Box } from '@mui/material';
@@ -52,53 +52,26 @@ export default function Customerlist() {
         fetchCustomers()
             .then(data => setCustomers(data._embedded.customers))
             .catch(err => console.error(err))
-
     }
 
     const updateCustomer = (url, updatedCustomer) => { // Update customer data with PUT-method
-        fetch(url, {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(updatedCustomer)
-        })
-            .then(response => { //handle errors
-                if (!response.ok)
-                    throw new Error("Error when updating: " + response.statusText)
-                return response.json();
-            })
+        handleCustomerUpdate(url, updatedCustomer)
             .then(() => handleFetch())
             .catch(err => console.error(err))
     }
 
     const addTraining = (newTraining) => {
-        fetch(import.meta.env.VITE_API_TRAININGS_URL, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newTraining)
-        })
-            .then(response => { //Handle errors
-                if (!response.ok)
-                    throw new Error("Error when adding car: " + response.statusText)
-
-                return response.json();
-            })
-            .then(() => handleFetch()) //Fetch updated car list
+        handleAddTraining(newTraining)
+            .then(() => handleFetch())
             .catch(err => console.error(err))
     }
 
     const deleteCustomer = (url) => { //Delete customer with DELETE-method
-        if (window.confirm("Are you sure?")) {
-            fetch(url, { method: 'DELETE' })
-                .then(response => {
-                    if (!response.ok)
-                        throw new Error("Error while deleting: " + response.statusText);
-
-                    return response.json();
-                })
-                .then(() => handleFetch())
-                .catch(err => console.error(err))
-        }
+        handleDeleteCustomer(url)
+            .then(() => handleFetch())
+            .catch(err => console.error(err))
     }
+
 
     const exportCsvData = [
         ["Firstname", "Lastname", "Streetaddress", "Postcode", "City", "Email", "Phone"],
