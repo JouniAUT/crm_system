@@ -49,7 +49,7 @@ function App() {
 
   return (
 
-    <Container maxWidth='xl' > {/* Add tab bar for easier navigation between pages */}
+    <Container maxWidth='xl'> {/* Add tab bar for easier navigation between pages */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: 5 }}>
         <Tabs value={currentValue} onChange={handleTabs} variant="fullWidth">
           <Tab value='one' label='Home' justifycontent='center' alignitems='center' />

@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchCustomers, editCustomer } from "../customerapi";
+import { fetchCustomers } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import { Box } from '@mui/material';
@@ -28,7 +28,7 @@ export default function Customerlist() {
             headerName: 'New Training'
         },
         {
-            cellRenderer: params => <EditCustomer data={params.data} handleCustomer={handleCustomer} />, //Column and button for editing customer info
+            cellRenderer: params => <EditCustomer data={params.data} updateCustomer={updateCustomer} />, //Column and button for editing customer info
             width: 112,
             headerName: 'Edit',
 
@@ -55,8 +55,17 @@ export default function Customerlist() {
 
     }
 
-    const handleCustomer = (url, updateCustomer) => { // Update customer data with PUT-method
-        editCustomer()
+    const updateCustomer = (url, updatedCustomer) => { // Update customer data with PUT-method
+        fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(updatedCustomer)
+        })
+            .then(response => { //handle errors
+                if (!response.ok)
+                    throw new Error("Error when updating: " + response.statusText)
+                return response.json();
+            })
             .then(() => handleFetch())
             .catch(err => console.error(err))
     }
@@ -115,7 +124,7 @@ export default function Customerlist() {
                 paginationAutoPageSize={true}
             />
             <CSVLink data={exportCsvData} filename='customerdata.csv' separator=';' style={{ marginLeft: '1360px' }}>
-                <Button size='large' variant='contained'>
+                <Button size='large' variant='contained' style={{ marginTop: '10px' }}>
                     Export
                 </Button>
             </CSVLink>

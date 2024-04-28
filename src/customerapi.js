@@ -16,6 +16,15 @@ export const fetchTrainingsCustomers = () => { // Fetch the backend for training
         })
 }
 
+export const fetchTrainings = () => {
+    return fetch(import.meta.env.VITE_API_TRAININGS_URL)
+        .then(response => {
+            if (!response.ok)
+                throw new Error("Error in fetch " + response.statusText);
+            return response.json();
+        })
+}
+{/* 
 export const editCustomer = () => { // Edit customer data in Customers page
     fetch(url, {
         method: 'PUT',
@@ -29,4 +38,5 @@ export const editCustomer = () => { // Edit customer data in Customers page
             return response.json();
         })
 }
+*/}
 
