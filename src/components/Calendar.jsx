@@ -2,12 +2,11 @@ import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useState, useEffect } from "react";
-import { fetchTrainingsCustomers } from "../customerapi";
+import { fetchTrainingsCustomers, handleFormat } from "../customerapi";
 import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { handleFormat } from "../customerapi";
 
 export default function Calendar() {
 
