@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchTrainings } from '../customerapi';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Label } from 'recharts'
 import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';

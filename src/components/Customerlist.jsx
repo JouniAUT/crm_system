@@ -6,7 +6,6 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { fetchCustomers, handleAddTraining, handleDeleteCustomer } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
-import { Box } from '@mui/material';
 import { CSVLink } from "react-csv";
 
 
