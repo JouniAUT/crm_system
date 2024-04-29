@@ -43,7 +43,7 @@ export const handleCustomerUpdate = (url, updatedCustomer) => {
 export const handleAddTraining = (newTraining) => {
     return fetch(import.meta.env.VITE_API_TRAININGS_URL, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(newTraining)
     })
         .then(response => {
@@ -96,7 +96,7 @@ export const handleFormat = (trainings) => {
 export const handleAddCustomer = (newCustomer) => {
     return fetch(import.meta.env.VITE_API_CUSTOMERS_URL, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(newCustomer)
     })
         .then(response => {
