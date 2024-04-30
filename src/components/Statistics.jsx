@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import _ from 'lodash';
 
 export default function Statistics() {
 
@@ -28,7 +29,6 @@ export default function Statistics() {
         textAlign: 'center',
         color: theme.palette.text.secondary,
     }));
-
 
     return (
         <>
