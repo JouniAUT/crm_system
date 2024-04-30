@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { fetchCustomers, handleAddTraining, handleDeleteCustomer } from "../customerapi";
+import { fetchCustomers, handleAddTraining, handleDeleteCustomer, handleCustomerUpdate } from "../customerapi";
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import { CSVLink } from "react-csv";

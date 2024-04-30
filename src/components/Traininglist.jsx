@@ -26,14 +26,12 @@ function Traininglist() {
                 <Button size='small' color='error' variant='contained' onClick={() => deleteTraining(params.data.id)}>
                     Delete
                 </Button>
-
         }
 
     ]);
 
     useEffect(() => {
         handleFetch();
-
 
     }, []);
 
@@ -43,17 +41,16 @@ function Traininglist() {
             .catch(err => console.error(err))
     }
 
-    const formatDate = (dateString) => { // Function for date formatting
-        const formattedDate = dayjs(dateString).format('D.M.YYYY HH:mm');
-        return formattedDate;
-    }
-
     const deleteTraining = (url) => { // Function for deleting training
         handleDeleteTraining(url)
             .then(() => handleFetch())
             .catch(err => console.error(err))
     }
 
+    const formatDate = (dateString) => { // Function for date formatting
+        const formattedDate = dayjs(dateString).format('D.M.YYYY HH:mm');
+        return formattedDate;
+    }
 
     return (
 
