@@ -22,6 +22,15 @@ export default function Statistics() {
             .catch(err => console.error(err))
     }
 
+    const aggregateData = () => {
+        const groupedTrainings = _.groupBy(trainings, 'activity');
+        const aggregatedData = _.map(groupedTrainings, (trainings, activity) => ({
+            activity,
+            duration: _.sumBy(trainings, 'duration'), // Calculate total duration for each activity
+        }));
+        return aggregatedData;
+    };
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -38,7 +47,7 @@ export default function Statistics() {
                 </Stack>
             </Box>
             <ResponsiveContainer width="100%" height={600} >
-                <BarChart data={trainings} margin={{ top: 50, right: 30, left: 20, bottom: 5 }} >
+                <BarChart data={aggregateData()} margin={{ top: 50, right: 30, left: 20, bottom: 5 }} >
 
                     <CartesianGrid strokeDasharray='3 3' />
                     <XAxis dataKey='activity' />
